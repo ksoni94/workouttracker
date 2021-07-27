@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
 import { toTheNearestTwoPointFive } from "../helpers";
+import { DEVICE } from "../constants";
 
 const Label = styled.label`
   padding: 4px;
+  white-space: nowrap;
 `;
 
 const StyledInput = styled.input`
@@ -15,6 +17,10 @@ const Wrapper = styled.form`
   display: flex;
   gap: 40px;
   padding: 32px 0px;
+  @media ${DEVICE.tablet} {
+    flex-direction: column;
+    gap: 20px;
+  }
 `;
 
 const FormGroup = styled.div`
@@ -61,6 +67,7 @@ const TrainingMax = ({
           }}
         />
       </FormGroup>
+
       <FormGroup>
         <Label for="shoulderPressOneRepMax">Shoulder Press One Rep Max</Label>
         <StyledInput

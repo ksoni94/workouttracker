@@ -1,13 +1,22 @@
 import React from "react";
+import styled from "styled-components";
 
 export const toTheNearestTwoPointFive = (value) => {
   return Math.round(value / 2.5) * 2.5;
 };
 
+const StyledSet = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 32px;
+`;
+
 export const getSets = (trainingMax, week) => {
   return week.map((section) => {
     return (
-      <div>
+      <StyledSet>
         <b>{section.title}</b>
         <div>
           {section.sets.map((set) => {
@@ -21,7 +30,7 @@ export const getSets = (trainingMax, week) => {
             );
           })}
         </div>
-      </div>
+      </StyledSet>
     );
   });
 };

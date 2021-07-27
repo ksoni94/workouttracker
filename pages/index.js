@@ -3,20 +3,30 @@ import styled from "styled-components";
 
 import TrainingMax from "../components/TrainingMax";
 import WeekOne from "../components/weekOne";
+import { DEVICE, GTR } from "../constants";
 
 const Header = styled.h1`
   padding: 38px 0px;
+  text-align: center;
 `;
 
 const HeaderWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  overflow: scroll;
+  padding-left: 10px;
 `;
 
 const MainWrapper = styled.div`
   display: flex;
   justify-content: center;
+  padding: ${GTR.M};
+
+  @media ${DEVICE.mobileM} {
+    overflow: hidden;
+  }
 `;
 
 const Home = () => {
@@ -28,9 +38,8 @@ const Home = () => {
 
   return (
     <>
+      <Header>Five Three One</Header>
       <HeaderWrapper>
-        <Header>Five Three One</Header>
-
         <TrainingMax
           setSquatTrainingMax={setSquatTrainingMax}
           setBenchTrainingMax={setBenchTrainingMax}
