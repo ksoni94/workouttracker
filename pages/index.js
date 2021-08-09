@@ -1,61 +1,38 @@
-import { useState } from "react";
+import React from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
-import TrainingMax from "../components/TrainingMax";
-import WeekOne from "../components/weekOne";
-import { DEVICE, GTR } from "../constants";
+import Button from "../components/Button";
+import { GTR } from "../constants";
 
-const Header = styled.h1`
-  padding: 38px 0px;
-  text-align: center;
+const LargeHeader = styled.h1`
+  font-size: 10rem;
 `;
 
-const HeaderWrapper = styled.div`
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+`;
+
+const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
-  overflow: scroll;
-  padding-left: 10px;
-`;
-
-const MainWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: ${GTR.M};
-
-  @media ${DEVICE.mobileM} {
-    overflow: hidden;
-  }
+  gap: 16px;
+  padding: 16px;
 `;
 
 const Home = () => {
-  const [squatTrainingMax, setSquatTrainingMax] = useState(null);
-  const [benchTrainingMax, setBenchTrainingMax] = useState(null);
-  const [shoulderPressTrainingMax, setShoulderPressTrainingMax] =
-    useState(null);
-  const [deadliftTrainingMax, setDeadliftTrainingMax] = useState(null);
-
+  const router = useRouter();
   return (
-    <>
-      <Header>Five Three One</Header>
-      <HeaderWrapper>
-        <TrainingMax
-          setSquatTrainingMax={setSquatTrainingMax}
-          setBenchTrainingMax={setBenchTrainingMax}
-          setShoulderPressTrainingMax={setShoulderPressTrainingMax}
-          setDeadliftTrainingMax={setDeadliftTrainingMax}
-        />
-      </HeaderWrapper>
-      <MainWrapper>
-        <WeekOne
-          squatTrainingMax={squatTrainingMax}
-          benchTrainingMax={benchTrainingMax}
-          deadliftTrainingMax={deadliftTrainingMax}
-          shoulderPressTrainingMax={shoulderPressTrainingMax}
-        />
-      </MainWrapper>
-    </>
+    <Wrapper>
+      <LargeHeader>Welcome!</LargeHeader>
+      <ButtonWrapper>
+        <Button text="Sign up" onClick={() => router.push("/sign-up")} />
+        <Button text="Log in" onClick={() => router.push("/login")} />
+      </ButtonWrapper>
+    </Wrapper>
   );
 };
 

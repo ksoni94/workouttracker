@@ -72,6 +72,11 @@ select {
   font: inherit;
 }
 
+/* Allows for center alignment vertically */
+#__next {
+   height: 100%;
+  }
+
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {

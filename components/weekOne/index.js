@@ -9,7 +9,7 @@ import { useState } from "react";
 const GreyBlock = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${COLORS.lightGrey};
+  background-color: ${COLORS.BLACK_CORAL};
   border-radius: 24px;
   width: 950px;
   padding: 8px;

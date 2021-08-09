@@ -1,9 +1,7 @@
 export const COLORS = {
-  background: "#24292D",
-  lightGrey: "#494B54",
-  darkBrown: "#2E151B",
-  pink: "#DA7B93",
-  mintyBlue: "#2F4454",
-  green: "#376E6F",
-  darkGreen: "#1C3334",
+  background: "#46494c",
+  BLACK_CORAL: "#4C5C68",
+  SPRING_GREEN: "#5efc8d",
+  PALE_CERULEAN: "#93BEDF",
+  ELECTRIC_BLUE: "#8ef9f3",
 };

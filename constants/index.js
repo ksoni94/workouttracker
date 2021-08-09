@@ -31,6 +31,14 @@ export const DEVICE = {
   desktopL: `(max-width: ${size.desktop})`,
 };
 
+// Colors
+
+export const COLORS = {
+  SPRING_GREEN: "#5efc8d",
+  OLD_LAVENDER: "#6d5a72",
+  ELECTRIC_BLUE: "#8ef9f3",
+};
+
 // Five Three One
 export const WEEK_ONE_WARM_UP_SETS = [
   { percentage: 0.4, sets: 1, reps: 5 },
