@@ -24,7 +24,7 @@ const createUser = async (req, res) => {
         password: hashed,
       },
     });
-    res.json(omit(data, ["password"]));
+    res.status(200).json(omit(data, ["password"]));
   } catch (err) {
     console.info("[users/create]", err);
     res.status(400).send({ message: err });
