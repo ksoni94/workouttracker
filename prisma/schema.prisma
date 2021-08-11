@@ -14,4 +14,7 @@ model users {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   email     String   @unique
+  password  String
+  firstName String
+  lastName  String
 }
