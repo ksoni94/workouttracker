@@ -2,7 +2,17 @@ import omit from "lodash/omit";
 import { hash } from "bcrypt";
 
 const createUser = async (req, res) => {
-  // validation to check if email exists?
+  const emailExists = await prisma.users.findUnique({
+    where: {
+      email: req.body.email,
+    },
+  });
+
+  if (emailExists) {
+    return res
+      .status(400)
+      .send({ error: "Email already exists, please log in" });
+  }
 
   try {
     const hashed = await hash(req.body.password, 12);
