@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
@@ -37,7 +38,7 @@ const ButtonWrapper = styled.div`
 
 const SignUp = () => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => axios.post("/api/users/create", data);
   return (
     <>
       <Header>Sign up</Header>
