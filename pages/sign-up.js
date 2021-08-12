@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/router";
 
 import Button from "../components/Button";
 import { DEVICE } from "../constants";
@@ -37,8 +39,16 @@ const ButtonWrapper = styled.div`
 `;
 
 const SignUp = () => {
+  const router = useRouter();
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => axios.post("/api/users/create", data);
+  const onSubmit = async (data) => {
+    await axios
+      .post("/api/users/create", data)
+      .then(() => router.push("/login"))
+      .catch((err) =>
+        toast(err.response.data.error, { style: { background: "red" } })
+      );
+  };
   return (
     <>
       <Header>Sign up</Header>
@@ -56,6 +66,7 @@ const SignUp = () => {
             <Button type="submit" text="Submit" size="small" />
           </ButtonWrapper>
         </StyledForm>
+        <Toaster />
       </FormContainer>
     </>
   );

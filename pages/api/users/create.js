@@ -1,6 +1,8 @@
 import omit from "lodash/omit";
 import { hash } from "bcrypt";
 
+import { prisma } from "../_base";
+
 const createUser = async (req, res) => {
   const emailExists = await prisma.users.findUnique({
     where: {
@@ -9,9 +11,10 @@ const createUser = async (req, res) => {
   });
 
   if (emailExists) {
-    return res
-      .status(400)
-      .send({ error: "Email already exists, please log in" });
+    return res.status(400).json({
+      error:
+        "Couldn't create a new user, if you've already signed up please log in!",
+    });
   }
 
   try {
