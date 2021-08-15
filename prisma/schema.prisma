@@ -11,10 +11,22 @@ generator client {
 }
 
 model users {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  email     String   @unique
-  password  String
-  firstName String
-  lastName  String
+  id            Int             @id @default(autoincrement())
+  createdAt     DateTime        @default(now())
+  email         String          @unique
+  password      String
+  firstName     String
+  lastName      String
+  one_rep_maxes one_rep_maxes[]
+}
+
+model one_rep_maxes {
+  id                         Int      @id @default(autoincrement())
+  createdAt                  DateTime @default(now())
+  user                       users    @relation(fields: [userId], references: [id])
+  userId                     Int
+  squat_one_rep_max          Int
+  bench_one_rep_max          Int
+  deadlift_one_rep_max       Int
+  shoulder_press_one_rep_max Int
 }
