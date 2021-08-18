@@ -52,7 +52,7 @@ const SignUp = ({ result }) => {
   };
   return (
     <>
-      <Header>Sign up {result} </Header>
+      <Header>Sign up </Header>
       <FormContainer>
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
           <StyledLabel for="firstName">First name</StyledLabel>
