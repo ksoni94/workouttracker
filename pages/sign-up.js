@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 
 import Button from "../components/Button";
 import { DEVICE } from "../constants";
+import { prisma } from "./api/_base";
 
 const FormContainer = styled.div`
   width: 50%;
@@ -38,7 +39,7 @@ const ButtonWrapper = styled.div`
   padding: 16px;
 `;
 
-const SignUp = () => {
+const SignUp = ({ result }) => {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
@@ -51,7 +52,7 @@ const SignUp = () => {
   };
   return (
     <>
-      <Header>Sign up</Header>
+      <Header>Sign up {result} </Header>
       <FormContainer>
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
           <StyledLabel for="firstName">First name</StyledLabel>
@@ -70,6 +71,19 @@ const SignUp = () => {
       </FormContainer>
     </>
   );
+};
+
+export const getServerSideProps = async (context) => {
+  const result = await prisma.users.findUnique({
+    where: {
+      id: 4,
+    },
+  });
+  console.log(context.req.headers.cookie.auth);
+
+  return {
+    props: { result: result.firstName },
+  };
 };
 
 export default SignUp;
