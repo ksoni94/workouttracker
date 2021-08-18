@@ -51,7 +51,7 @@ const SignUp = () => {
   };
   return (
     <>
-      <Header>Sign up</Header>
+      <Header>Sign up </Header>
       <FormContainer>
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
           <StyledLabel for="firstName">First name</StyledLabel>
