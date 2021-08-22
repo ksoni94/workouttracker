@@ -28,6 +28,7 @@ const login = async (req, res) => {
         serialize("auth", jwt, {
           httpOnly: true,
           path: "/",
+          maxAge: 3600,
           secure: process.env.NODE_ENV === "production",
           sameSite: "strict",
         })
