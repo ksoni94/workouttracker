@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 
 import Button from "../components/Button";
 import { DEVICE } from "../constants";
-import { prisma } from "./api/_base";
 
 const FormContainer = styled.div`
   width: 50%;
@@ -71,19 +70,6 @@ const SignUp = ({ result }) => {
       </FormContainer>
     </>
   );
-};
-
-export const getServerSideProps = async (context) => {
-  const result = await prisma.users.findUnique({
-    where: {
-      id: 4,
-    },
-  });
-  console.log(context.req.headers.cookie.auth);
-
-  return {
-    props: { result: result.firstName },
-  };
 };
 
 export default SignUp;

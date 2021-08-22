@@ -1,12 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
-import cookie from "cookie";
-import { verify } from "jsonwebtoken";
 
 import TrainingMax from "../components/TrainingMax";
 import WeekOne from "../components/weekOne";
 import { DEVICE, GTR } from "../constants";
 import { prisma } from "./api/_base";
+import { authenticate } from "../helpers";
 
 const Header = styled.h1`
   padding: 38px 0px;
@@ -42,7 +41,7 @@ const Home = ({ result }) => {
   return (
     <>
       <Header>Five Three One</Header>
-      <Header>Hey, {result}!</Header>
+      {result && <Header>Hey, {result.firstName}!</Header>}
       <HeaderWrapper>
         <TrainingMax
           setSquatTrainingMax={setSquatTrainingMax}
@@ -64,26 +63,28 @@ const Home = ({ result }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  const parsedCookie = cookie.parse(context.req.headers.cookie);
-  const auth = parsedCookie.auth;
+  const authenticated = await authenticate(context.req);
 
-  const jwtVerify = await verify(auth, process.env.APP_SECRET);
+  if (authenticated) {
+    const result = await prisma.users.findUnique({
+      where: {
+        id: authenticated.sub,
+      },
+      select: {
+        firstName: true,
+        lastName: true,
+        email: true,
+      },
+    });
 
-  const result = await prisma.users.findUnique({
-    where: {
-      id: jwtVerify.sub,
-    },
-    select: {
-      firstName: true,
-      lastName: true,
-      email: true,
-    },
-  });
-  console.log(jwtVerify);
-
-  return {
-    props: { result: result.firstName },
-  };
+    return {
+      props: { result },
+    };
+  } else {
+    return {
+      props: {},
+    };
+  }
 };
 
 export default Home;
