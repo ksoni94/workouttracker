@@ -31,7 +31,7 @@ const FormGroup = styled.div`
 
 const calculateTrainingMax = (value) => {
   if (!value) return 0;
-  console.log(value);
+
   const trainingMax = value * 0.9;
   const roundedTrainingMax = toTheNearestTwoPointFive(trainingMax);
   return roundedTrainingMax;
