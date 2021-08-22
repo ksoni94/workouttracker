@@ -3,7 +3,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import toast, { Toaster } from "react-hot-toast";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 import Button from "../components/Button";
 import { DEVICE } from "../constants";
