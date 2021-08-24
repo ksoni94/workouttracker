@@ -5,7 +5,7 @@ import { serialize } from "cookie";
 import { prisma } from "../_base";
 
 const login = async (req, res) => {
-  const user = await prisma.users.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       email: req.body.email,
     },
@@ -40,7 +40,7 @@ const login = async (req, res) => {
       });
     }
   } catch (err) {
-    console.info("[users/login]", err);
+    console.info("[user/login]", err);
     res.status(400).send({ message: err });
   }
 };

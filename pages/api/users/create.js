@@ -4,7 +4,7 @@ import { hash } from "bcrypt";
 import { prisma } from "../_base";
 
 const createUser = async (req, res) => {
-  const emailExists = await prisma.users.findUnique({
+  const emailExists = await prisma.user.findUnique({
     where: {
       email: req.body.email,
     },
@@ -19,7 +19,7 @@ const createUser = async (req, res) => {
 
   try {
     const hashed = await hash(req.body.password, 12);
-    const data = await prisma.users.create({
+    const data = await prisma.user.create({
       data: {
         email: req.body.email,
         firstName: req.body.firstName,

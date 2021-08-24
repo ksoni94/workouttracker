@@ -66,7 +66,7 @@ export const getServerSideProps = async (context) => {
   const authenticated = await authenticate(context.req);
 
   if (authenticated) {
-    const result = await prisma.users.findUnique({
+    const result = await prisma.user.findUnique({
       where: {
         id: authenticated.sub,
       },
