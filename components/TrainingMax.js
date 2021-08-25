@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import mapValues from "lodash/mapValues";
 
 import { toTheNearestTwoPointFive } from "../helpers";
 import { DEVICE } from "../constants";
@@ -49,7 +50,9 @@ const TrainingMax = ({
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (values) => {
-    axios.post("/api/workouts/submit-one-rep-maxes", values);
+    const floatValues = mapValues(values, (value) => parseFloat(value));
+
+    axios.post("/api/workouts/submit-one-rep-maxes", floatValues);
   };
 
   return (
