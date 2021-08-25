@@ -1,7 +1,10 @@
 import styled from "styled-components";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 
 import { toTheNearestTwoPointFive } from "../helpers";
 import { DEVICE } from "../constants";
+import Button from "../components/Button";
 
 const Label = styled.label`
   padding: 4px;
@@ -43,12 +46,21 @@ const TrainingMax = ({
   setShoulderPressTrainingMax,
   setDeadliftTrainingMax,
 }) => {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (values) => {
+    axios.post("/api/workouts/submit-one-rep-maxes", values);
+  };
+
   return (
-    <Wrapper>
+    <Wrapper onSubmit={handleSubmit(onSubmit)}>
       <FormGroup>
-        <Label for="S1RM">Squat One Rep Max</Label>
+        <Label for="squatOneRepMax">Squat One Rep Max</Label>
         <StyledInput
-          id="S1RM"
+          type="number"
+          step="0.25"
+          id="squatOneRepMax"
+          {...register("squatOneRepMax")}
           onChange={(event) => {
             return setSquatTrainingMax(
               calculateTrainingMax(parseFloat(event.target.value))
@@ -59,7 +71,10 @@ const TrainingMax = ({
       <FormGroup>
         <Label for="benchOneRepMax">Bench Press One Rep Max</Label>
         <StyledInput
+          type="number"
+          step="0.25"
           id="benchOneRepMax"
+          {...register("benchOneRepMax")}
           onChange={(event) => {
             return setBenchTrainingMax(
               calculateTrainingMax(parseFloat(event.target.value))
@@ -71,7 +86,10 @@ const TrainingMax = ({
       <FormGroup>
         <Label for="shoulderPressOneRepMax">Shoulder Press One Rep Max</Label>
         <StyledInput
+          type="number"
+          step="0.25"
           id="shoulderPressOneRepMax"
+          {...register("shoulderPressOneRepMax")}
           onChange={(event) => {
             return setShoulderPressTrainingMax(
               calculateTrainingMax(parseFloat(event.target.value))
@@ -82,7 +100,10 @@ const TrainingMax = ({
       <FormGroup>
         <Label for="deadliftOneRepMax">Deadlift One Rep Max</Label>
         <StyledInput
+          type="number"
+          step="0.25"
           id="deadliftOneRepMax"
+          {...register("deadliftOneRepMax")}
           onChange={(event) => {
             return setDeadliftTrainingMax(
               calculateTrainingMax(parseFloat(event.target.value))
@@ -90,6 +111,7 @@ const TrainingMax = ({
           }}
         />
       </FormGroup>
+      <Button type="submit" text="Submit" size="small" />
     </Wrapper>
   );
 };
