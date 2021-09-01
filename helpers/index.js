@@ -42,14 +42,24 @@ export const authenticate = async (req) => {
     const parsedCookie = parse(req.headers.cookie);
     const token = parsedCookie.auth;
 
+    console.log({ token });
+
     try {
       const verified = await verify(token, process.env.APP_SECRET);
       return verified;
     } catch (error) {
       console.error(error);
-      return {};
+      return null;
     }
   } else {
     return null;
   }
+};
+
+export const calculateTrainingMax = (value) => {
+  if (!value) return 0;
+
+  const trainingMax = value * 0.9;
+  const roundedTrainingMax = toTheNearestTwoPointFive(trainingMax);
+  return roundedTrainingMax;
 };
