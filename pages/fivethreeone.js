@@ -31,7 +31,7 @@ const MainWrapper = styled.div`
   }
 `;
 
-const Home = ({ result }) => {
+const Home = ({ user, maxes }) => {
   const [squatTrainingMax, setSquatTrainingMax] = useState(null);
   const [benchTrainingMax, setBenchTrainingMax] = useState(null);
   const [shoulderPressTrainingMax, setShoulderPressTrainingMax] =
@@ -41,13 +41,14 @@ const Home = ({ result }) => {
   return (
     <>
       <Header>Five Three One</Header>
-      {result && <Header>Hey, {result.firstName}!</Header>}
+      {user && <Header>Hey, {user.firstName}!</Header>}
       <HeaderWrapper>
         <TrainingMax
           setSquatTrainingMax={setSquatTrainingMax}
           setBenchTrainingMax={setBenchTrainingMax}
           setShoulderPressTrainingMax={setShoulderPressTrainingMax}
           setDeadliftTrainingMax={setDeadliftTrainingMax}
+          maxes={maxes}
         />
       </HeaderWrapper>
       <MainWrapper>
@@ -66,7 +67,7 @@ export const getServerSideProps = async (context) => {
   const authenticated = await authenticate(context.req);
 
   if (authenticated) {
-    const result = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         id: authenticated.sub,
       },
@@ -77,8 +78,26 @@ export const getServerSideProps = async (context) => {
       },
     });
 
+    const maxesArray = await prisma.oneRepMax.findMany({
+      where: {
+        userId: authenticated.sub,
+      },
+      select: {
+        squatOneRepMax: true,
+        deadliftOneRepMax: true,
+        benchOneRepMax: true,
+        shoulderPressOneRepMax: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 1,
+    });
+
+    const maxes = maxesArray[0];
+
     return {
-      props: { result },
+      props: { user, maxes },
     };
   } else {
     return {

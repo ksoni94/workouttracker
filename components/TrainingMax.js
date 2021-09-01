@@ -46,8 +46,16 @@ const TrainingMax = ({
   setBenchTrainingMax,
   setShoulderPressTrainingMax,
   setDeadliftTrainingMax,
+  maxes,
 }) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      squatOneRepMax: maxes.squatOneRepMax,
+      benchOneRepMax: maxes.benchOneRepMax,
+      shoulderPressOneRepMax: maxes.shoulderPressOneRepMax,
+      deadliftOneRepMax: maxes.deadliftOneRepMax,
+    },
+  });
 
   const onSubmit = (values) => {
     const floatValues = mapValues(values, (value) => parseFloat(value));
