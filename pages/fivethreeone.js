@@ -5,7 +5,7 @@ import TrainingMax from "../components/TrainingMax";
 import WeekOne from "../components/weekOne";
 import { DEVICE, GTR } from "../constants";
 import { prisma } from "./api/_base";
-import { authenticate } from "../helpers";
+import { authenticate, calculateTrainingMax } from "../helpers";
 
 const Header = styled.h1`
   padding: 38px 0px;
@@ -31,12 +31,19 @@ const MainWrapper = styled.div`
   }
 `;
 
-const Home = ({ user, maxes }) => {
-  const [squatTrainingMax, setSquatTrainingMax] = useState(null);
-  const [benchTrainingMax, setBenchTrainingMax] = useState(null);
-  const [shoulderPressTrainingMax, setShoulderPressTrainingMax] =
-    useState(null);
-  const [deadliftTrainingMax, setDeadliftTrainingMax] = useState(null);
+const Home = ({ user, maxes, trainingMaxes }) => {
+  const [squatTrainingMax, setSquatTrainingMax] = useState(
+    trainingMaxes?.squatTrainingMax || null
+  );
+  const [benchTrainingMax, setBenchTrainingMax] = useState(
+    trainingMaxes?.benchTrainingMax || null
+  );
+  const [shoulderPressTrainingMax, setShoulderPressTrainingMax] = useState(
+    trainingMaxes?.shoulderPressTrainingMax || null
+  );
+  const [deadliftTrainingMax, setDeadliftTrainingMax] = useState(
+    trainingMaxes?.deadliftTrainingMax || null
+  );
 
   return (
     <>
@@ -96,8 +103,17 @@ export const getServerSideProps = async (context) => {
 
     const maxes = maxesArray[0];
 
+    const trainingMaxes = {
+      squatTrainingMax: calculateTrainingMax(maxes.squatOneRepMax),
+      deadliftTrainingMax: calculateTrainingMax(maxes.deadliftOneRepMax),
+      benchTrainingMax: calculateTrainingMax(maxes.benchOneRepMax),
+      shoulderPressTrainingMax: calculateTrainingMax(
+        maxes.shoulderPressOneRepMax
+      ),
+    };
+
     return {
-      props: { user, maxes },
+      props: { user, maxes, trainingMaxes },
     };
   } else {
     return {

@@ -47,9 +47,17 @@ export const authenticate = async (req) => {
       return verified;
     } catch (error) {
       console.error(error);
-      return {};
+      return null;
     }
   } else {
     return null;
   }
+};
+
+export const calculateTrainingMax = (value) => {
+  if (!value) return 0;
+
+  const trainingMax = value * 0.9;
+  const roundedTrainingMax = toTheNearestTwoPointFive(trainingMax);
+  return roundedTrainingMax;
 };

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import mapValues from "lodash/mapValues";
 
-import { toTheNearestTwoPointFive } from "../helpers";
+import { calculateTrainingMax } from "../helpers";
 import { DEVICE } from "../constants";
 import Button from "../components/Button";
 
@@ -33,14 +33,6 @@ const FormGroup = styled.div`
   align-items: center;
 `;
 
-const calculateTrainingMax = (value) => {
-  if (!value) return 0;
-
-  const trainingMax = value * 0.9;
-  const roundedTrainingMax = toTheNearestTwoPointFive(trainingMax);
-  return roundedTrainingMax;
-};
-
 const TrainingMax = ({
   setSquatTrainingMax,
   setBenchTrainingMax,
@@ -50,10 +42,10 @@ const TrainingMax = ({
 }) => {
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      squatOneRepMax: maxes.squatOneRepMax,
-      benchOneRepMax: maxes.benchOneRepMax,
-      shoulderPressOneRepMax: maxes.shoulderPressOneRepMax,
-      deadliftOneRepMax: maxes.deadliftOneRepMax,
+      squatOneRepMax: maxes?.squatOneRepMax || 0,
+      benchOneRepMax: maxes?.benchOneRepMax || 0,
+      shoulderPressOneRepMax: maxes?.shoulderPressOneRepMax || 0,
+      deadliftOneRepMax: maxes?.deadliftOneRepMax || 0,
     },
   });
 
