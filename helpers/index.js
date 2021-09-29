@@ -42,8 +42,6 @@ export const authenticate = async (req) => {
     const parsedCookie = parse(req.headers.cookie);
     const token = parsedCookie.auth;
 
-    console.log({ token });
-
     try {
       const verified = await verify(token, process.env.APP_SECRET);
       return verified;

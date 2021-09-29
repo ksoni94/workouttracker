@@ -20,7 +20,6 @@ export const getServerSideProps = async (context) => {
         },
         take: 1,
       });
-      console.log(maxes);
       return maxes;
     } catch (error) {
       console.log(error);
