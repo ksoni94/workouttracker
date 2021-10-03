@@ -1,10 +1,26 @@
 import styled from "styled-components";
 import Select from "react-select";
+import { ChevronLeft, ChevronRight } from "react-feather";
 
 import { getSets } from "../../helpers";
 import { DEVICE, WEEK_ONE } from "../../constants";
 import { COLORS } from "../../styles/COLORS";
 import { useState } from "react";
+
+const InlineWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+`;
+
+const StyledButton = styled.button`
+  border: none;
+  background-color: inherit;
+  color: inherit;
+  cursor: pointer;
+`;
 
 const GreyBlock = styled.div`
   display: flex;
@@ -38,6 +54,8 @@ const ExerciseGrid = styled.div`
 
 const Header = styled.h2`
   align-self: center;
+  line-height: 0;
+  padding: 0 0.5rem;
 `;
 
 const ExerciseName = styled.h3`
@@ -88,9 +106,21 @@ const WeekOne = ({
 }) => {
   const [selectedExercises, setSelectedExercises] = useState(null);
 
+  const weekOnClick = () => {
+    console.log("change week");
+  };
+
   return (
     <GreyBlock>
-      <Header>Week One</Header>
+      <InlineWrapper>
+        <StyledButton onClick={weekOnClick}>
+          <ChevronLeft />
+        </StyledButton>
+        <Header>Week One</Header>
+        <StyledButton onClick={weekOnClick}>
+          <ChevronRight />
+        </StyledButton>
+      </InlineWrapper>
       <StyledSelect
         placeholder="Select Exercises..."
         styles={customStyles}
