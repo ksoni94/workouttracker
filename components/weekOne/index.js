@@ -1,10 +1,26 @@
 import styled from "styled-components";
 import Select from "react-select";
+import { ChevronLeft, ChevronRight } from "react-feather";
 
 import { getSets } from "../../helpers";
-import { DEVICE, WEEK_ONE } from "../../constants";
+import { DEVICE, WEEK } from "../../constants";
 import { COLORS } from "../../styles/COLORS";
 import { useState } from "react";
+
+const InlineWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+`;
+
+const StyledButton = styled.button`
+  border: none;
+  background-color: inherit;
+  color: inherit;
+  cursor: pointer;
+`;
 
 const GreyBlock = styled.div`
   display: flex;
@@ -38,6 +54,8 @@ const ExerciseGrid = styled.div`
 
 const Header = styled.h2`
   align-self: center;
+  line-height: 0;
+  padding: 0 0.5rem;
 `;
 
 const ExerciseName = styled.h3`
@@ -87,10 +105,37 @@ const WeekOne = ({
   shoulderPressTrainingMax,
 }) => {
   const [selectedExercises, setSelectedExercises] = useState(null);
+  const [count, setCount] = useState(0);
+
+  const selectedWeek = WEEK[count];
+
+  const nextWeek = () => {
+    if (count < WEEK.length - 1) {
+      setCount(count + 1);
+    } else {
+      setCount(0);
+    }
+  };
+
+  const prevWeek = () => {
+    if (count === 0) {
+      setCount(WEEK.length - 1);
+    } else {
+      setCount(count - 1);
+    }
+  };
 
   return (
     <GreyBlock>
-      <Header>Week One</Header>
+      <InlineWrapper>
+        <StyledButton onClick={prevWeek}>
+          <ChevronLeft />
+        </StyledButton>
+        <Header>{selectedWeek.title}</Header>
+        <StyledButton onClick={nextWeek}>
+          <ChevronRight />
+        </StyledButton>
+      </InlineWrapper>
       <StyledSelect
         placeholder="Select Exercises..."
         styles={customStyles}
@@ -105,10 +150,10 @@ const WeekOne = ({
           <ExerciseName style={{ gridArea: "titleOne" }}>Squats</ExerciseName>
           <ExerciseName style={{ gridArea: "titleTwo" }}>Bench</ExerciseName>
           <div style={{ gridArea: "setsOne" }}>
-            {getSets(squatTrainingMax, WEEK_ONE)}
+            {getSets(squatTrainingMax, selectedWeek.sets)}
           </div>
           <div style={{ gridArea: "setsTwo" }}>
-            {getSets(benchTrainingMax, WEEK_ONE)}
+            {getSets(benchTrainingMax, selectedWeek.sets)}
           </div>
         </ExerciseGrid>
       )}
@@ -119,10 +164,10 @@ const WeekOne = ({
             Shoulder Press
           </ExerciseName>
           <div style={{ gridArea: "setsOne" }}>
-            {getSets(deadliftTrainingMax, WEEK_ONE)}
+            {getSets(deadliftTrainingMax, selectedWeek.sets)}
           </div>
           <div style={{ gridArea: "setsTwo" }}>
-            {getSets(shoulderPressTrainingMax, WEEK_ONE)}
+            {getSets(shoulderPressTrainingMax, selectedWeek.sets)}
           </div>
         </ExerciseGrid>
       )}
