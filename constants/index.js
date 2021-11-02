@@ -40,27 +40,18 @@ export const COLORS = {
 };
 
 // Five Three One
-export const WEEK_ONE_WARM_UP_SETS = [
-  { percentage: 0.4, sets: 1, reps: 5 },
-  { percentage: 0.5, sets: 1, reps: 5 },
-  { percentage: 0.6, sets: 1, reps: 3 },
-];
-export const WEEK_ONE_WORKING_SETS = [
-  { percentage: 0.65, sets: 1, reps: 5 },
-  { percentage: 0.75, sets: 1, reps: 5 },
-  { percentage: 0.85, sets: 1, reps: "5+" },
-];
-export const WEEK_ONE_COOL_DOWN_SETS = [{ percentage: 0.65, sets: 5, reps: 5 }];
+
+const WarmUp = {
+  title: "Warm Up",
+  sets: [
+    { percentage: 0.4, sets: 1, reps: 5 },
+    { percentage: 0.5, sets: 1, reps: 5 },
+    { percentage: 0.6, sets: 1, reps: 3 },
+  ],
+};
 
 export const WEEK_ONE = [
-  {
-    title: "Warm Up",
-    sets: [
-      { percentage: 0.4, sets: 1, reps: 5 },
-      { percentage: 0.5, sets: 1, reps: 5 },
-      { percentage: 0.6, sets: 1, reps: 3 },
-    ],
-  },
+  WarmUp,
   {
     title: "Working Sets",
     sets: [
@@ -73,4 +64,42 @@ export const WEEK_ONE = [
     title: "Cool Down",
     sets: [{ percentage: 0.65, sets: 5, reps: 5 }],
   },
+];
+
+export const WEEK_TWO = [
+  WarmUp,
+  {
+    title: "Working Sets",
+    sets: [
+      { percentage: 0.7, sets: 1, reps: 3 },
+      { percentage: 0.8, sets: 1, reps: 3 },
+      { percentage: 0.9, sets: 1, reps: "3+" },
+    ],
+  },
+  {
+    title: "Cool Down",
+    sets: [{ percentage: 0.7, sets: 5, reps: 5 }],
+  },
+];
+
+export const WEEK_THREE = [
+  WarmUp,
+  {
+    title: "Working Sets",
+    sets: [
+      { percentage: 0.75, sets: 1, reps: 5 },
+      { percentage: 0.85, sets: 1, reps: 3 },
+      { percentage: 0.95, sets: 1, reps: "1+" },
+    ],
+  },
+  {
+    title: "Cool Down",
+    sets: [{ percentage: 0.75, sets: 5, reps: 5 }],
+  },
+];
+
+export const WEEK = [
+  { title: "Week One", sets: WEEK_ONE },
+  { title: "Week Two", sets: WEEK_TWO },
+  { title: "Week Three", sets: WEEK_THREE },
 ];
