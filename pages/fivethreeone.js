@@ -3,16 +3,17 @@ import styled from "styled-components";
 
 import TrainingMax from "../components/TrainingMax";
 import WeekOne from "../components/weekOne";
+import Header from "../components/Header";
 import { DEVICE, GTR } from "../constants";
 import { prisma } from "./api/_base";
 import { authenticate, calculateTrainingMax } from "../helpers";
 
-const Header = styled.h1`
+const Heading = styled.h1`
   padding: 38px 0px;
   text-align: center;
 `;
 
-const HeaderWrapper = styled.div`
+const HeadingWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,9 +48,10 @@ const Home = ({ user, maxes, trainingMaxes }) => {
 
   return (
     <>
-      <Header>Five Three One</Header>
-      {user && <Header>Hey, {user.firstName}!</Header>}
-      <HeaderWrapper>
+      <Header user={user} />
+      <Heading>Five Three One</Heading>
+      {user && <Heading>Hey, {user.firstName}!</Heading>}
+      <HeadingWrapper>
         <TrainingMax
           setSquatTrainingMax={setSquatTrainingMax}
           setBenchTrainingMax={setBenchTrainingMax}
@@ -57,7 +59,7 @@ const Home = ({ user, maxes, trainingMaxes }) => {
           setDeadliftTrainingMax={setDeadliftTrainingMax}
           maxes={maxes}
         />
-      </HeaderWrapper>
+      </HeadingWrapper>
       <MainWrapper>
         <WeekOne
           squatTrainingMax={squatTrainingMax}

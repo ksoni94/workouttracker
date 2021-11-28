@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 
 import Button from "../components/Button";
-import { GTR } from "../constants";
 
 const LargeHeader = styled.h1`
   font-size: 10rem;
